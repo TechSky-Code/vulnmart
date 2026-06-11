@@ -1,0 +1,5 @@
+# Block PHP execution in uploads directory
+php_flag engine off
+Options -ExecCGI
+RemoveHandler .php .php3 .php4 .php5 .phtml
+AddType text/plain .php .php3 .php4 .php5 .phtml

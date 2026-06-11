@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_USER=vulnmart
+      - DB_PASS=vulnmart123
+      - DB_NAME=vulnmart
+
+  db:
+    image: mysql:8.0
+    command: ["--secure-file-priv=", "--local-infile=ON"]
+    environment:
+      - MYSQL_DATABASE=vulnmart
+      - MYSQL_USER=vulnmart
+      - MYSQL_PASSWORD=vulnmart123
+      - MYSQL_ROOT_PASSWORD=root123
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      interval: 5s
+      timeout: 10s
+      retries: 15
+
+volumes:
+  db_data:
