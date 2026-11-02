@@ -50,20 +50,21 @@ $hints_on = (int)($settings['global']['show_hints']     ?? 1);
 $qlog_on  = (int)($settings['global']['show_query_log'] ?? 1);
 
 $vuln_info = [
-    'search'   => ['icon'=>'🔍', 'title'=>'Search Page',        'type'=>'GET ?q=',         'technique'=>'Error-based + UNION-based'],
-    'product'  => ['icon'=>'📦', 'title'=>'Product Detail',     'type'=>'GET ?id=',         'technique'=>'UNION-based + Boolean Blind'],
-    'login'    => ['icon'=>'🔐', 'title'=>'Login Page',         'type'=>'POST username=',   'technique'=>'Authentication Bypass'],
-    'profile'  => ['icon'=>'👤', 'title'=>'Profile Page',       'type'=>'GET ?user=',       'technique'=>'Time-based Blind'],
-    'orders'   => ['icon'=>'📋', 'title'=>'Orders Page',        'type'=>'Session username', 'technique'=>'Second-Order SQLi'],
-    'category' => ['icon'=>'🏷', 'title'=>'Category Page',      'type'=>'X-Forwarded-For',  'technique'=>'Header-based Injection'],
-    'admin'    => ['icon'=>'🛡', 'title'=>'Admin Panel Search', 'type'=>'POST search=',     'technique'=>'Stacked Queries'],
-    'fileops'  => ['icon'=>'📁', 'title'=>'File Operations',     'type'=>'GET receipt=',     'technique'=>'LOAD_FILE + INTO OUTFILE'],
-    'api_search'=>['icon'=>'🔌', 'title'=>'API Search Endpoint', 'type'=>'POST JSON body',   'technique'=>'JSON Injection'],
-    'recommend' =>['icon'=>'🍪', 'title'=>'Recommendations',     'type'=>'Cookie header',     'technique'=>'Cookie-based Injection'],
-    'xss'       =>['icon'=>'💥', 'title'=>'Product Reviews',     'type'=>'GET search= / POST', 'technique'=>'XSS (Reflected + Stored)'],
-    'csrf'      =>['icon'=>'🔄', 'title'=>'Account Settings',    'type'=>'POST (no token)',    'technique'=>'CSRF'],
-    'upload'    =>['icon'=>'📎', 'title'=>'File Upload',          'type'=>'POST multipart',     'technique'=>'Insecure File Upload'],
-    'checkout'  =>['icon'=>'💳', 'title'=>'Checkout',            'type'=>'POST hidden fields',  'technique'=>'Business Logic Flaws'],
+    'search'   => ['icon'=>'ðŸ”', 'title'=>'Search Page',        'type'=>'GET ?q=',         'technique'=>'Error-based + UNION-based'],
+    'product'  => ['icon'=>'ðŸ“¦', 'title'=>'Product Detail',     'type'=>'GET ?id=',         'technique'=>'UNION-based + Boolean Blind'],
+    'login'    => ['icon'=>'ðŸ”', 'title'=>'Login Page',         'type'=>'POST username=',   'technique'=>'Authentication Bypass'],
+    'profile'  => ['icon'=>'ðŸ‘¤', 'title'=>'Profile Page',       'type'=>'GET ?user=',       'technique'=>'Time-based Blind'],
+    'orders'   => ['icon'=>'ðŸ“‹', 'title'=>'Orders Page',        'type'=>'Session username', 'technique'=>'Second-Order SQLi'],
+    'category' => ['icon'=>'ðŸ·', 'title'=>'Category Page',      'type'=>'X-Forwarded-For',  'technique'=>'Header-based Injection'],
+    'admin'    => ['icon'=>'ðŸ›¡', 'title'=>'Admin Panel Search', 'type'=>'POST search=',     'technique'=>'Stacked Queries'],
+    'fileops'  => ['icon'=>'ðŸ“', 'title'=>'File Operations',     'type'=>'GET receipt=',     'technique'=>'LOAD_FILE + INTO OUTFILE'],
+    'api_search'=>['icon'=>'ðŸ”Œ', 'title'=>'API Search Endpoint', 'type'=>'POST JSON body',   'technique'=>'JSON Injection'],
+    'recommend' =>['icon'=>'ðŸª', 'title'=>'Recommendations',     'type'=>'Cookie header',     'technique'=>'Cookie-based Injection'],
+    'xss'       =>['icon'=>'ðŸ’¥', 'title'=>'Product Reviews',     'type'=>'GET search= / POST', 'technique'=>'XSS (Reflected + Stored)'],
+    'csrf'      =>['icon'=>'ðŸ”„', 'title'=>'Account Settings',    'type'=>'POST (no token)',    'technique'=>'CSRF'],
+    'upload'    =>['icon'=>'ðŸ“Ž', 'title'=>'File Upload',          'type'=>'POST multipart',     'technique'=>'Insecure File Upload'],
+    'checkout'  =>['icon'=>'ðŸ’³', 'title'=>'Checkout',            'type'=>'POST hidden fields',  'technique'=>'Business Logic Flaws'],
+    'bac'       =>['icon'=>'ðŸšª', 'title'=>'Access Control',      'type'=>'?id= / /admin/users', 'technique'=>'IDOR + Forced Browsing'],
 ];
 
 include __DIR__ . '/../includes/header.php';
@@ -120,7 +121,7 @@ include __DIR__ . '/../includes/header.php';
     <div class="toggle-row">
         <div class="toggle-label">
             <h3>Vulnerability Hints</h3>
-            <p>Shows the hint banner on each page — explains the vulnerability type, injection point, and a ready-to-use attack example.</p>
+            <p>Shows the hint banner on each page â€” explains the vulnerability type, injection point, and a ready-to-use attack example.</p>
         </div>
         <form method="POST">
             <input type="hidden" name="toggle" value="show_hints">
@@ -141,7 +142,7 @@ include __DIR__ . '/../includes/header.php';
     <div class="toggle-row">
         <div class="toggle-label">
             <h3>Query Log</h3>
-            <p>Shows the exact SQL query that executed at the bottom of each page — lets students see what their input produced in the database in real time.</p>
+            <p>Shows the exact SQL query that executed at the bottom of each page â€” lets students see what their input produced in the database in real time.</p>
         </div>
         <form method="POST">
             <input type="hidden" name="toggle" value="show_query_log">
@@ -161,13 +162,13 @@ include __DIR__ . '/../includes/header.php';
     <!-- Mode label -->
     <div style="padding:12px 20px;background:#f9f9f9;border-radius:0 0 var(--radius) var(--radius);font-size:12px;color:#555;">
         <?php if ($hints_on && $qlog_on): ?>
-            ✅ <strong>Training Mode</strong> — All aids visible. Best for beginner walkthroughs.
+            âœ… <strong>Training Mode</strong> â€” All aids visible. Best for beginner walkthroughs.
         <?php elseif (!$hints_on && !$qlog_on): ?>
-            🌐 <strong>Realistic Mode</strong> — Clean site, no training aids. Best for advanced students and live demos.
+            ðŸŒ <strong>Realistic Mode</strong> â€” Clean site, no training aids. Best for advanced students and live demos.
         <?php elseif ($hints_on && !$qlog_on): ?>
-            📖 <strong>Guided Mode</strong> — Hints visible, query log hidden. Good for conceptual explanations.
+            ðŸ“– <strong>Guided Mode</strong> â€” Hints visible, query log hidden. Good for conceptual explanations.
         <?php else: ?>
-            🔬 <strong>Debug Mode</strong> — Query log visible, hints hidden. Good for technical deep-dives.
+            ðŸ”¬ <strong>Debug Mode</strong> â€” Query log visible, hints hidden. Good for technical deep-dives.
         <?php endif; ?>
     </div>
 </div>
@@ -208,9 +209,9 @@ include __DIR__ . '/../includes/header.php';
         <form method="POST" style="display:flex;gap:8px;align-items:center;">
             <input type="hidden" name="page" value="<?= htmlspecialchars($page) ?>">
             <select name="difficulty" class="diff-select" style="margin:0;flex:1;">
-                <option value="low"    <?= $current==='low'    ?'selected':'' ?>>Low — Raw (No Filter)</option>
-                <option value="medium" <?= $current==='medium' ?'selected':'' ?>>Medium — Basic Filter</option>
-                <option value="hard"   <?= $current==='hard'   ?'selected':'' ?>>Hard — Prepared Stmt</option>
+                <option value="low"    <?= $current==='low'    ?'selected':'' ?>>Low â€” Raw (No Filter)</option>
+                <option value="medium" <?= $current==='medium' ?'selected':'' ?>>Medium â€” Basic Filter</option>
+                <option value="hard"   <?= $current==='hard'   ?'selected':'' ?>>Hard â€” Prepared Stmt</option>
             </select>
             <button type="submit" class="btn btn-primary btn-sm">Set</button>
         </form>

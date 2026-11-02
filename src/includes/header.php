@@ -3,12 +3,12 @@ require_once __DIR__ . '/../includes/db.php';
 
 // Hardcoded emoji map - avoids DB charset issues entirely
 $_cat_icons = [
-    'books'        => '📚',
-    'clothing'     => '👕',
-    'electronics'  => '💻',
-    'gaming'       => '🎮',
-    'home-kitchen' => '🏠',
-    'sports'       => '⚽',
+    'books'        => 'ðŸ“š',
+    'clothing'     => 'ðŸ‘•',
+    'electronics'  => 'ðŸ’»',
+    'gaming'       => 'ðŸŽ®',
+    'home-kitchen' => 'ðŸ ',
+    'sports'       => 'âš½',
 ];
 
 $_categories = [];
@@ -26,7 +26,7 @@ if ($_cats) {
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) . ' – ' : '' ?>VulnMart</title>
+    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) . ' â€“ ' : '' ?>VulnMart</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -35,9 +35,9 @@ if ($_cats) {
 
 <!-- Training Banner -->
 <div class="training-banner">
-    ⚠️ <strong>VulnMart</strong> — Intentionally Vulnerable Web Application for Web Pentesting Training &nbsp;|&nbsp; For Educational Use Only
+    âš ï¸ <strong>VulnMart</strong> â€” Intentionally Vulnerable Web Application for Web Pentesting Training &nbsp;|&nbsp; For Educational Use Only
     <?php if (isAdmin()): ?>
-    &nbsp;|&nbsp; <a href="/admin/settings.php" style="color:#FFD54F;font-weight:600;">⚙ Settings</a>
+    &nbsp;|&nbsp; <a href="/admin/settings.php" style="color:#FFD54F;font-weight:600;">âš™ Settings</a>
     <?php endif; ?>
 </div>
 
@@ -46,7 +46,7 @@ if ($_cats) {
     <div class="header-inner">
 
         <a href="/" class="site-logo">
-            <span class="logo-icon">🛒</span>
+            <span class="logo-icon">ðŸ›’</span>
             <span>VulnMart</span>
         </a>
 
@@ -63,7 +63,7 @@ if ($_cats) {
             <input type="text" name="q" placeholder="Search VulnMart"
                    value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
                    class="search-input" autocomplete="off">
-            <button type="submit" class="search-btn">🔍</button>
+            <button type="submit" class="search-btn">ðŸ”</button>
         </form>
 
         <div class="header-actions">
@@ -97,14 +97,15 @@ if ($_cats) {
 <!-- Category Nav -->
 <nav class="cat-nav">
     <div class="cat-nav-inner">
-        <a href="/" class="cat-nav-link">☰ All</a>
+        <a href="/" class="cat-nav-link">â˜° All</a>
         <?php foreach ($_categories as $c): ?>
         <a href="/category.php?slug=<?= htmlspecialchars($c['slug']) ?>" class="cat-nav-link">
             <?= $c['icon'] ?> <?= htmlspecialchars($c['name']) ?>
         </a>
         <?php endforeach; ?>
         <?php if (isAdmin()): ?>
-        <a href="/admin/index.php" class="cat-nav-link cat-nav-admin">🛡 Admin Panel</a>
+        <a href="/admin/index.php" class="cat-nav-link cat-nav-admin">ðŸ›¡ Admin Panel</a>
+        <a href="/admin/users.php" class="cat-nav-link cat-nav-admin">ðŸ‘¥ Users</a>
         <?php endif; ?>
     </div>
 </nav>
