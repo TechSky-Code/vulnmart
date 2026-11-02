@@ -16,11 +16,11 @@ $sqlError  = null;
 //
 // The attack happens in two stages:
 //
-// STAGE 1 â€” Register with a malicious username:
+// STAGE 1 — Register with a malicious username:
 //   Username: john' UNION SELECT 1,username,password,4,5 FROM users-- -
 //   This gets stored SAFELY in the DB (register.php uses real_escape_string).
 //
-// STAGE 2 â€” View orders. The username is retrieved FROM the DB (trusted),
+// STAGE 2 — View orders. The username is retrieved FROM the DB (trusted),
 //   then re-used in a NEW query WITHOUT escaping. The stored payload fires.
 //
 // This demonstrates: sanitizing input on the way IN doesn't help if you
@@ -30,7 +30,7 @@ $sqlError  = null;
 $username = $_SESSION['username']; // Retrieved from session (came from DB)
 
 if ($diff === 'low') {
-    // Username from session is used directly â€” second-order injection fires
+    // Username from session is used directly — second-order injection fires
     $sql = "SELECT o.id, o.total_amount, o.status, o.created_at,
                    o.shipping_address
             FROM orders o
@@ -47,7 +47,7 @@ if ($diff === 'low') {
     }
 
 } elseif ($diff === 'medium') {
-    // Username escaped before re-use â€” but order status not sanitized
+    // Username escaped before re-use — but order status not sanitized
     $username_escaped = $conn->real_escape_string($username);
     $status_filter = $_GET['status'] ?? '';
 
@@ -72,7 +72,7 @@ if ($diff === 'low') {
     }
 
 } else {
-    // HARD â€” fully safe
+    // HARD — fully safe
     $user_id = (int)$_SESSION['user_id'];
     $stmt = $conn->prepare("SELECT id, total_amount, status, created_at, shipping_address
                             FROM orders WHERE user_id = ? ORDER BY created_at DESC");
@@ -80,7 +80,7 @@ if ($diff === 'low') {
     $stmt->execute();
     $res = $stmt->get_result();
     while ($row = $res->fetch_assoc()) $orders[] = $row;
-    $queryLog = "[HARD] Query uses user_id (integer) from session â€” not injectable";
+    $queryLog = "[HARD] Query uses user_id (integer) from session — not injectable";
 }
 
 include __DIR__ . '/includes/header.php';
@@ -90,7 +90,7 @@ include __DIR__ . '/includes/header.php';
     <h1>Your Orders</h1>
     <?php if (showHints()): ?>
     <div class="vuln-info">
-        <span>ðŸŽ¯ Vulnerability: Second-Order SQLi &nbsp;|&nbsp; Difficulty:</span>
+        <span>🎯 Vulnerability: Second-Order SQLi &nbsp;|&nbsp; Difficulty:</span>
         <?= difficultyBadge($diff) ?>
     </div>
     <?php endif; ?>
@@ -98,13 +98,13 @@ include __DIR__ . '/includes/header.php';
 
 <?php if (showHints() && $diff === 'low'): ?>
 <div class="alert alert-warning" style="font-size:12px;">
-    ðŸ”´ <strong>SECOND-ORDER SQLi:</strong> Register a new account with a malicious username like:<br>
+    🔴 <strong>SECOND-ORDER SQLi:</strong> Register a new account with a malicious username like:<br>
     <code>test' UNION SELECT 1,username,password,4,5 FROM users-- -</code><br>
     Then log in and visit this page. The stored payload fires when your username is re-used in the query.
 </div>
 <?php elseif (showHints() && $diff === 'medium'): ?>
 <div class="alert alert-warning" style="font-size:12px;">
-    ðŸŸ  <strong>MEDIUM:</strong> Username is now escaped on re-use. Try <code>?status=delivered' OR '1'='1</code>
+    🟠 <strong>MEDIUM:</strong> Username is now escaped on re-use. Try <code>?status=delivered' OR '1'='1</code>
 </div>
 <?php endif; ?>
 
@@ -135,11 +135,11 @@ include __DIR__ . '/includes/header.php';
             <td>$<?= htmlspecialchars(number_format((float)($o['total_amount'] ?? 0), 2)) ?></td>
             <td>
                 <span class="status-badge status-<?= htmlspecialchars($o['status'] ?? '') ?>">
-                    <?= htmlspecialchars($o['status'] ?? 'â€”') ?>
+                    <?= htmlspecialchars($o['status'] ?? '—') ?>
                 </span>
             </td>
-            <td><?= htmlspecialchars($o['created_at'] ?? 'â€”') ?></td>
-            <td style="font-size:12px;color:var(--text-muted);"><?= htmlspecialchars($o['shipping_address'] ?? 'â€”') ?></td>
+            <td><?= htmlspecialchars($o['created_at'] ?? '—') ?></td>
+            <td style="font-size:12px;color:var(--text-muted);"><?= htmlspecialchars($o['shipping_address'] ?? '—') ?></td>
             <td><a class="btn btn-primary btn-sm" href="/order.php?id=<?= (int)$o['id'] ?>">View</a></td>
         </tr>
         <?php endforeach; ?>
@@ -147,7 +147,7 @@ include __DIR__ . '/includes/header.php';
 </table>
 <?php else: ?>
 <div class="no-results">
-    <div class="no-results-icon">ðŸ“¦</div>
+    <div class="no-results-icon">📦</div>
     <h3>No orders found</h3>
     <p>This account has no orders, or your injection payload returned no rows.</p>
 </div>

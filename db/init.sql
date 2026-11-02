@@ -146,7 +146,7 @@ INSERT INTO products (name, description, price, original_price, category_id, sto
 ('Carry-On Backpack 40L',        'TSA laptop-compatible main compartment, hidden anti-theft pocket, USB passthrough, luggage sleeve. Fits 15.6" laptops. Lifetime warranty.',                                69.99,   99.99, 4, 250, 4.6, 7890, NULL,          '#546E7A'),
 -- Gaming
 ('GamePad Pro Wireless Controller','Haptic feedback, adaptive triggers, 3D audio via built-in speaker, rechargeable 1560mAh battery. Includes USB-C cable. Compatible with PC.',                            69.99,   89.99, 5, 180, 4.7, 9234, 'Best Seller', '#212121'),
-('ErgoPro Gaming Chair',           'Class 4 gas lift, 4D armrests, lumbar + headrest pillows, 165Â° recline, cold-cure foam seat. BIFMA certified. Ships fully assembled.',                                 299.99,  449.99, 5,  50, 4.4, 2341, NULL,          '#B71C1C'),
+('ErgoPro Gaming Chair',           'Class 4 gas lift, 4D armrests, lumbar + headrest pillows, 165° recline, cold-cure foam seat. BIFMA certified. Ships fully assembled.',                                 299.99,  449.99, 5,  50, 4.4, 2341, NULL,          '#B71C1C'),
 ('Viper V3 Pro Gaming Mouse',      '30K DPI optical sensor, 95g ultralight, 6 programmable buttons, per-RGB, 90-hour battery. Includes grip tape and extra skates.',                                         79.99,  119.99, 5, 200, 4.6, 4567, 'Top Rated',   '#4A148C'),
 -- Sports
 ('YogaFlex Premium Mat',           'Extra-thick 6mm TPE foam, non-slip microfiber top, alignment lines, carrying strap. Eco-friendly, latex-free. Sweat-resistant surface.',                                 29.99,   49.99, 6, 400, 4.5, 6789, NULL,          '#1B5E20'),
@@ -206,22 +206,22 @@ INSERT INTO user_preferences (user_id, theme, newsletter) VALUES
 -- ============================================================
 
 INSERT INTO settings (page, difficulty, description, show_hints, show_query_log) VALUES
-('search',    'low', 'GET ?q= â€” Error-based + UNION-based SQLi',         1, 1),
-('product',   'low', 'GET ?id= â€” UNION-based + Boolean Blind SQLi',      1, 1),
-('login',     'low', 'POST â€” Authentication Bypass SQLi',                 1, 1),
-('profile',   'low', 'GET ?user= â€” Time-based Blind SQLi',               1, 1),
-('orders',    'low', 'Session â€” Second-Order SQLi',                       1, 1),
-('category',  'low', 'Header â€” X-Forwarded-For Injection',               1, 1),
-('admin',     'low', 'Admin Panel â€” Stacked Queries',                     1, 1),
-('global',    'low', 'Global UI settings â€” show_hints and show_query_log',0, 0),
-('fileops',   'low', 'GET receipt= â€” LOAD_FILE + INTO OUTFILE injection', 1, 1),
-('api_search','low', 'POST JSON body â€” JSON injection via API endpoint',  1, 1),
-('recommend', 'low', 'Cookie last_category â€” Cookie-based injection',     1, 1),
-('xss',       'low', 'GET search= + POST review â€” Reflected + Stored XSS',  1, 1),
-('csrf',      'low', 'POST profile update â€” No CSRF token protection',       1, 1),
-('upload',    'low', 'POST file â€” No server-side file type validation',      1, 1),
-('checkout',  'low', 'POST checkout â€” Price manipulation, coupon reuse, negative qty', 1, 0),
-('bac',       'low', 'order ?id= + /admin/users.php â€” IDOR & Forced Browsing (Broken Access Control)', 1, 1);
+('search',    'low', 'GET ?q= — Error-based + UNION-based SQLi',         1, 1),
+('product',   'low', 'GET ?id= — UNION-based + Boolean Blind SQLi',      1, 1),
+('login',     'low', 'POST — Authentication Bypass SQLi',                 1, 1),
+('profile',   'low', 'GET ?user= — Time-based Blind SQLi',               1, 1),
+('orders',    'low', 'Session — Second-Order SQLi',                       1, 1),
+('category',  'low', 'Header — X-Forwarded-For Injection',               1, 1),
+('admin',     'low', 'Admin Panel — Stacked Queries',                     1, 1),
+('global',    'low', 'Global UI settings — show_hints and show_query_log',0, 0),
+('fileops',   'low', 'GET receipt= — LOAD_FILE + INTO OUTFILE injection', 1, 1),
+('api_search','low', 'POST JSON body — JSON injection via API endpoint',  1, 1),
+('recommend', 'low', 'Cookie last_category — Cookie-based injection',     1, 1),
+('xss',       'low', 'GET search= + POST review — Reflected + Stored XSS',  1, 1),
+('csrf',      'low', 'POST profile update — No CSRF token protection',       1, 1),
+('upload',    'low', 'POST file — No server-side file type validation',      1, 1),
+('checkout',  'low', 'POST checkout — Price manipulation, coupon reuse, negative qty', 1, 0),
+('bac',       'low', 'order ?id= + /admin/users.php — IDOR & Forced Browsing (Broken Access Control)', 1, 1);
 
 -- ============================================================
 -- FILE privilege for the fileops.php training exercise

@@ -9,16 +9,16 @@ $diff = getDifficulty('bac');
 
 // ================================================================
 // FORCED BROWSING / MISSING FUNCTION-LEVEL ACCESS CONTROL
-// (Broken Access Control â€” vertical privilege escalation)
+// (Broken Access Control — vertical privilege escalation)
 //
 // LOW:    No role check. Any logged-in user reaches this admin page
 //         directly and can promote themselves to admin. The link is
-//         hidden from normal users â€” but hiding is not protecting.
+//         hidden from normal users — but hiding is not protecting.
 //
 // MEDIUM: Trusts a CLIENT-CONTROLLED signal instead of the session
 //         role. Bypass with a cookie role=admin, or append ?admin=1.
 //
-// HARD:   Proper server-side isAdmin() check â€” forced browsing blocked
+// HARD:   Proper server-side isAdmin() check — forced browsing blocked
 //         with a redirect, exactly like the other admin pages.
 // ================================================================
 if ($diff === 'hard') {
@@ -32,7 +32,7 @@ if ($diff === 'hard') {
 $conn    = getDB();
 $message = null;
 
-// Privileged actions â€” reachable by anyone who passed the gate above
+// Privileged actions — reachable by anyone who passed the gate above
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['promote'])) {
         $uid = (int)$_POST['promote'];
@@ -66,7 +66,7 @@ include __DIR__ . '/../includes/header.php';
     <h1>User Management</h1>
     <?php if (showHints()): ?>
     <div class="vuln-info">
-        <span>ðŸŽ¯ Vulnerability: Forced Browsing / Function-Level Access Control &nbsp;|&nbsp; Difficulty:</span>
+        <span>🎯 Vulnerability: Forced Browsing / Function-Level Access Control &nbsp;|&nbsp; Difficulty:</span>
         <?= difficultyBadge($diff) ?>
     </div>
     <?php endif; ?>
@@ -74,12 +74,12 @@ include __DIR__ . '/../includes/header.php';
 
 <?php if (showHints() && $diff === 'low'): ?>
 <div class="alert alert-warning" style="font-size:12px;">
-    ðŸ”´ <strong>FORCED BROWSING:</strong> This admin page has no role check. Any logged-in user can open
+    🔴 <strong>FORCED BROWSING:</strong> This admin page has no role check. Any logged-in user can open
     <code>/admin/users.php</code> directly and <strong>promote themselves to admin</strong>. Hiding the link isn't protecting the page.
 </div>
 <?php elseif (showHints() && $diff === 'medium'): ?>
 <div class="alert alert-warning" style="font-size:12px;">
-    ðŸŸ  <strong>MEDIUM:</strong> The page trusts a client-controlled signal. Bypass with a cookie
+    🟠 <strong>MEDIUM:</strong> The page trusts a client-controlled signal. Bypass with a cookie
     <code>role=admin</code>, or append <code>?admin=1</code> to the URL.
 </div>
 <?php endif; ?>
